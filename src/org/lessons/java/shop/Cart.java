@@ -1,6 +1,7 @@
 package org.lessons.java.shop;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
 public class Cart {
@@ -13,9 +14,11 @@ public class Cart {
         String name;
         double price;
         int vat;
+        boolean fidelityCard;
+        BigDecimal total;
 
         for (int i = 0; i < cart.length; i++) {
-            System.out.println("Prodotto n. " + i);
+            System.out.println("Prodotto n. " + i+1);
             System.out.println("Che tipo di prodotto vuoi aggiungere al carrello?");
             System.out.println("1 - Smartphone");
             System.out.println("2 - Televisore");
@@ -64,10 +67,29 @@ public class Cart {
             }
         }
 
+        System.out.println("Carrello:");
         for (int i = 0; i < cart.length; i++) {
             System.out.println();
             cart[i].printProduct();
         }
+
+        System.out.println("Possiedi una carta fedeltà? (y/n): ");
+        fidelityCard = scanner.nextLine().equals("y");
+
+        System.out.println("Totale del carrello");
+        if (fidelityCard) {
+            total = cart[0].getDiscountedPrice();
+            for (int i = 1; i < cart.length; i++) {
+                total = total.add(cart[i].getDiscountedPrice()).setScale(2, RoundingMode.HALF_EVEN);
+            }
+        } else {
+            total = cart[0].getTotalPrice();
+            for (int i = 1; i < cart.length; i++) {
+                total = total.add(cart[i].getTotalPrice()).setScale(2, RoundingMode.HALF_EVEN);
+            }
+        }
+
+        System.out.println(total + " $");
 
         scanner.close();
     }

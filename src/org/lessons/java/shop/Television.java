@@ -1,5 +1,7 @@
 package org.lessons.java.shop;
 
+import java.math.BigDecimal;
+
 public class Television extends Product {
 
     // ATTRIBUTES
@@ -36,5 +38,13 @@ public class Television extends Product {
         super.printProduct();
         System.out.print("Inch: " + this.getInch() + "\n");
         System.out.print("Smart: " + this.getSmart() + "\n");
+    }
+
+    @Override
+    public BigDecimal getDiscountedPrice() {
+        if (!this.smart) {
+            return this.getTotalPrice().multiply(new BigDecimal("0.90"));
+        }
+        return super.getDiscountedPrice();
     }
 }

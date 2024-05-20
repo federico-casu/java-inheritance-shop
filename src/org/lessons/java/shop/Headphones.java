@@ -1,5 +1,7 @@
 package org.lessons.java.shop;
 
+import java.math.BigDecimal;
+
 public class Headphones extends Product {
 
     // ATTRIBUTES
@@ -36,5 +38,13 @@ public class Headphones extends Product {
         super.printProduct();
         System.out.print("Color: " + this.getColor() + "\n");
         System.out.print("Connection: " + this.getConnection() + "\n");
+    }
+
+    @Override
+    public BigDecimal getDiscountedPrice() {
+        if (!this.connection) {
+            return this.getTotalPrice().multiply(new BigDecimal("0.93"));
+        }
+        return super.getDiscountedPrice();
     }
 }

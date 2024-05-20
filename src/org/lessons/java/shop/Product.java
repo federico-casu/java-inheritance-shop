@@ -5,14 +5,14 @@ import java.util.Random;
 
 public class Product {
 
-    // ATTRIBUTI
+    // ATTRIBUTES
     private int code;
     private String name;
     private String description;
     private BigDecimal price;
     private int vat;
 
-    // COSTRUTTORI
+    // CONSTRUCTORS
     Product (String name, double price, int vat) {
         this.code = new Random().nextInt(1, 1000000);
         this.name = name;
@@ -20,7 +20,7 @@ public class Product {
         this.vat = vat;
     }
 
-    // METODI
+    // METHODS
     // code
     public String getCode() {
         return String.format("%06d", this.code);
@@ -76,6 +76,10 @@ public class Product {
         System.out.print("Prezzo: " + String.format("%.2f", this.getTotalPrice()) + "\n");
         System.out.print("iva: " + this.getVat() + "\n");
         System.out.print("Nome prodotto: " + this.getProductName() + "\n");
+    }
+
+    public BigDecimal getDiscountedPrice() {
+        return this.getTotalPrice().multiply(new BigDecimal("0.98"));
     }
 
 }
